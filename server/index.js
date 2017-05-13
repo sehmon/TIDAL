@@ -1,10 +1,14 @@
-var express = require('express');
-var app = express();
+var path = require('path');
+var app = require('express')();
+var server = require('http').createServer(app);
+var io = require('socket.io')(server);
 
-app.get('/', function (req, res) {
-    res.send('Hello World!')
-})
+io.on('connection', function(){
+  console.log("Client connected");
+});
 
-app.listen(3000, function () {
-    console.log('Example app listening on port 3000!')
-})
+app.get('/', function(req, res) {
+      res.sendFile(path.join(__dirname+'/index.html'));
+});
+
+server.listen(3000);

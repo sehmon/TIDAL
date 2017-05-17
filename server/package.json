@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/yawkity/TIDAL#readme",
   "dependencies": {
+    "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "socket.io": "^2.0.1"
   }

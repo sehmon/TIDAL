@@ -16,8 +16,12 @@
       <br/>
       <button id="camera-button" onclick="TopCodes.startStopVideoScan('video-canvas')">Start / Stop Scanning Foods</button>
     </div>
+
     <div class="foodList" style="margin-left: 50; float: left">
-      <h2>Your food list:</h2>
+      <h2>🔥 Your current fuel 🔥</h2>
+      <div class="foodListItem">
+
+      </div>
     </div>
     <script src="./topcodes.js"></script>
   </body>
@@ -40,13 +44,18 @@
     var socket = io()
     TopCodes.setVideoFrameCallback("video-canvas", function(jsonString) {
       var topcodes = JSON.parse(jsonString).topcodes
-      if (topcodes !== null) {
+        if (topcodes.length > 0) {
         for (t in topcodes) {
           var object = topcodes[t]
           if (object.code in foods) {
             var foodDetected = 'Just detected ' + foods[object.code].name + '!'
             console.log(foodDetected)
-            addFood(foods[object.code])
+            if(object.code == "55") {
+                console.log('dsfasfsadf')
+                $(".foodListItem").replaceWith("<div class='foodListItem'><h3>" + foods[object.code].name + "</h3><img src=" + foods[object.code].picture + "></div>")
+            } else {
+                addFood(foods[object.code])
+            }
           } else {
             stopCar()
           }
@@ -64,7 +73,7 @@
         contentType: 'application/json',
         data: JSON.stringify({newCarValue: true})}
       )
-      $(".foodList").append("<div><h3>" + food.name + "</h3><img src=" + food.picture + "></div>")
+      $(".foodListItem").replaceWith("<div class='foodListItem'><h3>" + food.name + "</h3><img src=" + food.picture + "></div>")
     }
 
     function stopCar () {
@@ -74,6 +83,7 @@
         contentType: 'application/json',
         data: JSON.stringify({newCarValue: false})}
       )
+      $(".foodListItem").replaceWith("<div class='foodListItem'></div>")
     }
   </script>
 </html>

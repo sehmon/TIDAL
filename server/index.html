@@ -2,10 +2,78 @@
   <head>
     <script src="/socket.io/socket.io.js"></script>
     <script>
-      var socket = io();
+      var socket = io()
     </script>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"></script>
   </head>
   <body>
-    <h1>Socket IO client</h1>
+    <h1>Healthy food exhibit - check out your food items!</h1>
+    <div style="float: left">
+      <canvas id="video-canvas" width="420" height="400" style="background: #ddd;"></canvas>
+      <br/>
+      <button id="camera-button" onclick="TopCodes.startStopVideoScan('video-canvas')">Start / Stop Scanning Foods</button>
+    </div>
+    <div class="foodList" style="margin-left: 50; float: left">
+      <h2>Your food list:</h2>
+    </div>
+    <script src="./topcodes.js"></script>
   </body>
+  <script>
+    var foods = {
+      31: {
+        "name": "Chicken Salad",
+        "picture": "http://cdn-image.myrecipes.com/sites/default/files/styles/420x420/public/image/recipes/sl/03142008/chicken-salad-sl-521176-x.jpg?itok=m1m0du1o"
+      },
+      47: {
+        "name": "Quinoa",
+        "picture": "http://assets.epicurious.com/photos/54b0b5bec6a78d1a4a60b208/1:1/w_600%2Ch_600/395939_quinoa-tabbouleh_1x1.jpg"
+      },
+      55: {
+        "name": "Donut",
+        "picture": "https://www.dunkindonuts.com/content/dam/dd/img/products/donuts/donuts/silos/silo-donuts-280x200.png"
+      }
+    }
+
+    var socket = io()
+    TopCodes.setVideoFrameCallback("video-canvas", function(jsonString) {
+      var topcodes = JSON.parse(jsonString).topcodes
+      if (topcodes !== null) {
+        for (t in topcodes) {
+          var object = topcodes[t]
+          if (object.code in foods) {
+            var foodDetected = 'Just detected ' + foods[object.code].name + '!'
+            console.log(foodDetected)
+            addFood(foods[object.code])
+          } else {
+            stopCar()
+          }
+        }
+      } else {
+        stopCar()
+      }
+    })
+
+    function addFood (food) {
+      socket.emit('add food', food)
+      $.ajax({
+        url: '/status',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({newCarValue: true})}
+      )
+      $(".foodList").append("<div><h3>" + food.name + "</h3><img src=" + food.picture + "></div>")
+    }
+
+    function stopCar () {
+      $.ajax({
+        url: '/status',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({newCarValue: false})}
+      )
+    }
+  </script>
 </html>

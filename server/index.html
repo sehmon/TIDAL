@@ -1,5 +1,9 @@
+<!-- font-family: 'Open Sans', sans-serif;
+font-family: 'Barrio', cursive; -->
+
 <html>
   <head>
+    <link href="https://fonts.googleapis.com/css?family=Barrio|Open+Sans:300" rel="stylesheet">
     <script src="/socket.io/socket.io.js"></script>
     <script>
       var socket = io()
@@ -9,37 +13,86 @@
       integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
       crossorigin="anonymous"></script>
   </head>
-  <body>
-    <h1>Healthy food exhibit - check out your food items!</h1>
-    <div style="float: left">
-      <canvas id="video-canvas" width="420" height="400" style="background: #ddd;"></canvas>
-      <br/>
-      <button id="camera-button" onclick="TopCodes.startStopVideoScan('video-canvas')">Start / Stop Scanning Foods</button>
-    </div>
+  <body style="font-family: 'Open Sans', sans-serif">
+    <div style="align-items: center; display: flex; flex-direction: column">
+      <h1 style="font-family: 'Barrio', cursive; margin-bottom: 0; font-size: 60">🍽 💪 FUEL UP! 🚗 🔥</h1>
+      <p styke="margin: 0">The objective of this game is to fuel your car with a balanced diet of foods and reach the finish line!</p>
+      <div>
+        <div style="float: left;">
+          <canvas id="video-canvas" width="400" height="150" style="background: #ddd;"></canvas>
+          <br/>
+          <button id="camera-button" onclick="TopCodes.startStopVideoScan('video-canvas')">Start / Stop Scanning Foods</button>
+        </div>
+        <div class="foodList" style="align-items: center; display: flex; flex-direction: column; float: left; width: 500">
+          <h2 style="font-family: 'Barrio', cursive;">🔥 your current fuel 🔥</h2>
+          <div class="foodListItem">
 
-    <div class="foodList" style="margin-left: 50; float: left">
-      <h2>🔥 Your current fuel 🔥</h2>
-      <div class="foodListItem">
-
+          </div>
+        </div>
       </div>
     </div>
     <script src="./topcodes.js"></script>
   </body>
-  <script>
+  <script>0
     var foods = {
       31: {
-        "name": "Chicken Salad",
-        "picture": "http://cdn-image.myrecipes.com/sites/default/files/styles/420x420/public/image/recipes/sl/03142008/chicken-salad-sl-521176-x.jpg?itok=m1m0du1o"
+        "name": "Apple",
+        "picture": "https://www.thesun.co.uk/wp-content/uploads/2017/01/gettyimages-185071735.jpg"
       },
       47: {
-        "name": "Quinoa",
-        "picture": "http://assets.epicurious.com/photos/54b0b5bec6a78d1a4a60b208/1:1/w_600%2Ch_600/395939_quinoa-tabbouleh_1x1.jpg"
+        "name": "Banana",
+        "picture": "https://theuncagedlife.com/wp-content/uploads/2014/06/peeled-banana.jpg"
       },
       55: {
-        "name": "Donut",
-        "picture": "https://www.dunkindonuts.com/content/dam/dd/img/products/donuts/donuts/silos/silo-donuts-280x200.png"
+        "name": "Blueberry Oatmeal",
+        "picture": "http://img.allw.mn/content/d1/yy/ifo55zf4.jpg"
+      },
+      59: {
+        "name": "Broccoli",
+        "picture": "http://assets.epicurious.com/photos/5761cfc58accf290434553a9/master/pass/steamed-broccoli-with-olive-oil-garlic-and-lemon.jpg"
+      },
+      61: {
+        "name": "Chocolate Chip Cookie",
+        "picture": "https://images-gmi-pmc.edge-generalmills.com/eb52c020-c145-440c-8445-911f133c0096.jpg"
+      },
+      79: {
+        "name": "Cinnamon Roll",
+        "picture": "http://www.cookingclassy.com/wp-content/uploads/2012/11/cinnamon+rolls.jpg"
+      },
+      87: {
+        "name": "Egg",
+        "picture": "http://img1.cookinglight.timeinc.net/sites/default/files/image/2017/01/main/pristine-sunny-side-up-eggs.jpg"
+      },
+      91: {
+        "name": "Hot Dog",
+        "picture": "http://www.jpost.com/HttpHandlers/ShowImage.ashx?ID=357982"
+      },
+      93: {
+        "name": "Ice Cream Sandwich",
+        "picture": "https://pixel.nymag.com/imgs/daily/grub/2014/07/22/22-ice-cream-sandwich.w1200.h630.jpg"
+      },
+      103: {
+        "name": "Lettuce",
+        "picture": "https://www.maangchi.com/wp-content/uploads/2015/11/lettuce-seasonings.jpg"
+      },
+      107: {
+        "name": "Potato",
+        "picture": "http://ibakeheshoots.com/wp-content/uploads/2013/12/baked_potato-2b.jpg"
+      },
+      109: {
+        "name": "Pretzel",
+        "picture": "http://cdn.history.com/sites/2/2015/05/hungry-pretzel-iStock_000018610872Large-E.jpeg"
+      },
+      115: {
+        "name": "Steak",
+        "picture": "http://www.omahasteaks.com/gifs/990x594/fi004.jpg"
+      },
+      117: {
+        "name": "Yogurt",
+        "picture": "http://www.skinnytaste.com/wp-content/uploads/2011/07/low-fat-frozen-yogurt-550x411.jpg"
       }
     }
+
 
     var socket = io()
     TopCodes.setVideoFrameCallback("video-canvas", function(jsonString) {
@@ -50,12 +103,7 @@
           if (object.code in foods) {
             var foodDetected = 'Just detected ' + foods[object.code].name + '!'
             console.log(foodDetected)
-            if(object.code == "55") {
-                console.log('dsfasfsadf')
-                $(".foodListItem").replaceWith("<div class='foodListItem'><h3>" + foods[object.code].name + "</h3><img src=" + foods[object.code].picture + "></div>")
-            } else {
-                addFood(foods[object.code])
-            }
+            addFood(foods[object.code])
           } else {
             stopCar()
           }
@@ -73,7 +121,7 @@
         contentType: 'application/json',
         data: JSON.stringify({newCarValue: true})}
       )
-      $(".foodListItem").replaceWith("<div class='foodListItem'><h3>" + food.name + "</h3><img src=" + food.picture + "></div>")
+      $(".foodListItem").replaceWith("<div class='foodListItem'><img style='max-width: 500px; max-height: 300px' src=" + food.picture + "><h3>" + food.name + "</h3></div>")
     }
 
     function stopCar () {

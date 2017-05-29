@@ -1,23 +1,35 @@
-import serial       # Library for communicating with Arduino
-import requests     # Library for communicating with Topcode Server
+import math		# Library for exponential function
+import requests     	# Library for communicating with Topcode Server
+from pololu_drv8835_rpi import motors, MAX_SPEED
 
-# Connect to the Arduino's serial port
+def linear(x):
+	return -x
 
-SERIAL_PORT = '/dev/cu.usbmodem1421'
-BAUD_RATE = 9600
+def root(x):
+	return x^(-1/2)	
 
-ser = serial.Serial(SERIAL_PORT, BAUD_RATE)
+def logistic(x):
+	return -(x / (x + math.exp(1 - x)));
 
-running = True      # Tells car to start moving or not
-if not running:
-    ser.write('e'); # Tell car to stop
-else:
-    while True:
-        # Reach out to the server and grab the newest value of 'carMoving'
-        r = requests.get('http://localhost:3000/status')
 
-        # If the server response is true, tell the car to move forward
-        if r.json()["forward"]:
-            ser.write('w')
-        else:
-            ser.write('e')
+# motors.setSpeeds(480, 480)
+motors.setSpeeds(0, 0);
+
+
+
+
+
+
+# running = True      # Tells car to start moving or not
+# if not running:
+#     ser.write('e'); # Tell car to stop
+# else:
+#     while True:
+#         # Reach out to the server and grab the newest value of 'carMoving'
+#         r = requests.get('http://localhost:3000/status')
+# 
+#         # If the server response is true, tell the car to move forward
+#        if r.json()["forward"]:
+##            ser.write('w')
+#        else:
+#            ser.write('e')

@@ -23,7 +23,7 @@ font-family: 'Barrio', cursive; -->
           <br/>
           <button id="camera-button" onclick="TopCodes.startStopVideoScan('video-canvas')">Start / Stop Scanning Foods</button>
         </div>
-        <div class="foodList" style="align-items: center; display: flex; flex-direction: column; float: left; width: 500">
+        <div class="foodList" style="align-items: center; display: flex; flex-direction: column; float: left; margin-left: 50; width: 500">
           <h2 style="font-family: 'Barrio', cursive;">🔥 your current fuel 🔥</h2>
           <div class="foodListItem">
 
@@ -37,59 +37,73 @@ font-family: 'Barrio', cursive; -->
     var foods = {
       31: {
         "name": "Apple",
-        "picture": "https://www.thesun.co.uk/wp-content/uploads/2017/01/gettyimages-185071735.jpg"
+        "picture": "http://www.sanar.org/files/sanar/propiedades-beneficiosas-de-la-manzana.jpg",
+        "description": "Apples are a great source of Vitamin C, which helps your body form and maintain connective tissue!"
       },
       47: {
         "name": "Banana",
-        "picture": "https://theuncagedlife.com/wp-content/uploads/2014/06/peeled-banana.jpg"
+        "picture": "https://theuncagedlife.com/wp-content/uploads/2014/06/peeled-banana.jpg",
+        "description": "Bananas are a great source of potassium, a mineral essential to your health!"
       },
       55: {
         "name": "Blueberry Oatmeal",
-        "picture": "http://img.allw.mn/content/d1/yy/ifo55zf4.jpg"
+        "picture": "https://static01.nyt.com/images/2012/09/12/science/13recipehealth/13recipehealth-superJumbo-v2.jpg",
+        "description": "Oatmeal is a great source of many different nutrients, such as Vitamin A, Calcium, Iron, Vitamin B-6, and Magnesium."
       },
       59: {
         "name": "Broccoli",
-        "picture": "http://assets.epicurious.com/photos/5761cfc58accf290434553a9/master/pass/steamed-broccoli-with-olive-oil-garlic-and-lemon.jpg"
+        "picture": "http://assets.epicurious.com/photos/5761cfc58accf290434553a9/master/pass/steamed-broccoli-with-olive-oil-garlic-and-lemon.jpg",
+        "description": "Broccoli is a great source of Vitamin-C, and improves your bones! One serving of broccoli has the same amount of Potassium as a banana!"
       },
       61: {
         "name": "Chocolate Chip Cookie",
-        "picture": "https://images-gmi-pmc.edge-generalmills.com/eb52c020-c145-440c-8445-911f133c0096.jpg"
+        "picture": "https://images-gmi-pmc.edge-generalmills.com/eb52c020-c145-440c-8445-911f133c0096.jpg",
+        "description": "Cookies are yummy, but are high in fat counts and low in vitamins and other nutrients."
       },
       79: {
         "name": "Cinnamon Roll",
-        "picture": "http://www.cookingclassy.com/wp-content/uploads/2012/11/cinnamon+rolls.jpg"
+        "picture": "http://www.cookingclassy.com/wp-content/uploads/2012/11/cinnamon+rolls.jpg",
+        "description": "Cinnamon rolls are have a lot of sugar and fat which can ruin a healthy day!"
       },
       87: {
         "name": "Egg",
-        "picture": "http://img1.cookinglight.timeinc.net/sites/default/files/image/2017/01/main/pristine-sunny-side-up-eggs.jpg"
+        "picture": "http://cdn0.wideopeneats.com/wp-content/uploads/2016/08/sunny-side-up-eggs.png",
+        "description": "Just one egg is high in protein that can sustain energy for a whole morning! Eggs make a healthy and yummy breakfast!"
       },
       91: {
         "name": "Hot Dog",
-        "picture": "http://www.jpost.com/HttpHandlers/ShowImage.ashx?ID=357982"
+        "picture": "http://www.jpost.com/HttpHandlers/ShowImage.ashx?ID=357982",
+        "description": "Hot dogs are high in fat and sodium, and don’t contain much nutritional value. The protein will give you some energy, but it won’t last long!"
       },
       93: {
         "name": "Ice Cream Sandwich",
-        "picture": "https://pixel.nymag.com/imgs/daily/grub/2014/07/22/22-ice-cream-sandwich.w1200.h630.jpg"
+        "picture": "https://pixel.nymag.com/imgs/daily/grub/2014/07/22/22-ice-cream-sandwich.w1200.h630.jpg",
+        "description": "Ice cream sandwiches are high in fat and sugar, and make a great dessert! However, due to their lack of nutrients they cannot sustain energy for very long."
       },
       103: {
         "name": "Lettuce",
-        "picture": "https://www.maangchi.com/wp-content/uploads/2015/11/lettuce-seasonings.jpg"
+        "picture": "https://www.maangchi.com/wp-content/uploads/2015/11/lettuce-seasonings.jpg",
+        "description": "Lettuce is a healthy food choice, but without other healthy foods to go with it, it cannot provide you with enough vitamins and nutrients to sustain a day’s worth of energy."
       },
       107: {
         "name": "Potato",
-        "picture": "http://ibakeheshoots.com/wp-content/uploads/2013/12/baked_potato-2b.jpg"
+        "picture": "http://ibakeheshoots.com/wp-content/uploads/2013/12/baked_potato-2b.jpg",
+        "description": "Did you know that one potato contains double the Potassium as one banana? That’s a lot of Potassium!"
       },
       109: {
         "name": "Pretzel",
-        "picture": "http://cdn.history.com/sites/2/2015/05/hungry-pretzel-iStock_000018610872Large-E.jpeg"
+        "picture": "http://cdn.history.com/sites/2/2015/05/hungry-pretzel-iStock_000018610872Large-E.jpeg",
+        "description": "While pretzels are high in sodium, they contain a good amount of protein that can be good for a midday snack."
       },
       115: {
         "name": "Steak",
-        "picture": "http://www.omahasteaks.com/gifs/990x594/fi004.jpg"
+        "picture": "http://www.omahasteaks.com/gifs/990x594/fi004.jpg",
+        "description": "Steak is extremely high in calories, fat, cholesterol, sodium, potassium, and protein. Eating a steak will give you a lot of sustained energy, but eaten in excess can be detrimental to your health!"
       },
       117: {
         "name": "Yogurt",
-        "picture": "http://www.skinnytaste.com/wp-content/uploads/2011/07/low-fat-frozen-yogurt-550x411.jpg"
+        "picture": "http://www.skinnytaste.com/wp-content/uploads/2011/07/low-fat-frozen-yogurt-550x411.jpg",
+        "description": "Yogurt is a great source of calcium and potassium. It is a great way to start your day off energized!"
       }
     }
 
@@ -121,7 +135,7 @@ font-family: 'Barrio', cursive; -->
         contentType: 'application/json',
         data: JSON.stringify({newCarValue: true})}
       )
-      $(".foodListItem").replaceWith("<div class='foodListItem'><img style='max-width: 500px; max-height: 300px' src=" + food.picture + "><h3>" + food.name + "</h3></div>")
+      $(".foodListItem").replaceWith("<div class='foodListItem'><img style='max-width: 500px; max-height: 300px' src=" + food.picture + "><h3>" + food.name + ": </h3>" + food.description + "</div>")
     }
 
     function stopCar () {

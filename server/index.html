@@ -16,16 +16,22 @@ font-family: 'Barrio', cursive; -->
   <body style="font-family: 'Open Sans', sans-serif">
     <div style="align-items: center; display: flex; flex-direction: column">
       <h1 style="font-family: 'Barrio', cursive; margin-bottom: 0; font-size: 60">🍽 💪 FUEL UP! 🚗 🔥</h1>
-      <p styke="margin: 0">The objective of this game is to fuel your car with a balanced diet of foods and reach the finish line!</p>
-      <div>
-        <div style="float: left;">
-          <canvas id="video-canvas" width="400" height="150" style="background: #ddd;"></canvas>
+      <p style="margin: 0">The objective of this game is to fuel your car with a balanced diet of foods and reach the finish line!</p>
+      <div style="display:flex; align-items: start; flex-direction: row">
+        <div style="margin: 25; margin-top: 100">
+          <canvas id="video-canvas" width="200" height="200" style="background: #ddd;"></canvas>
           <br/>
           <button id="camera-button" onclick="TopCodes.startStopVideoScan('video-canvas')">Start / Stop Scanning Foods</button>
         </div>
-        <div class="foodList" style="align-items: center; display: flex; flex-direction: column; float: left; margin-left: 50; width: 500">
+        <div class="foodList" style="align-items: center; display: flex; flex-direction: column; width: 500; margin: 25">
           <h2 style="font-family: 'Barrio', cursive;">🔥 your current fuel 🔥</h2>
           <div class="foodListItem">
+
+          </div>
+        </div>
+        <div style="width: 200; margin: 25">
+          <h2 style="font-family: 'Barrio', cursive;">Past Foods:</h2>
+          <div class="pastFoods" style="display: flex; flex-direction: column; align-items: center">
 
           </div>
         </div>
@@ -33,7 +39,7 @@ font-family: 'Barrio', cursive; -->
     </div>
     <script src="./topcodes.js"></script>
   </body>
-  <script>0
+  <script>
     var foods = {
       31: {
         "name": "Apple",
@@ -107,17 +113,22 @@ font-family: 'Barrio', cursive; -->
       }
     }
 
+    var prevFood = null
+    var currentFood = null
 
     var socket = io()
     TopCodes.setVideoFrameCallback("video-canvas", function(jsonString) {
       var topcodes = JSON.parse(jsonString).topcodes
-        if (topcodes.length > 0) {
+      if (topcodes.length > 0) {
         for (t in topcodes) {
           var object = topcodes[t]
           if (object.code in foods) {
-            var foodDetected = 'Just detected ' + foods[object.code].name + '!'
-            console.log(foodDetected)
-            addFood(foods[object.code])
+            if (currentFood !== object.code) {
+              prevFood = currentFood
+              currentFood = object.code
+              console.log('Just detected new food: ', foods[object.code].name , '!')
+              addFood(foods[object.code])
+            }
           } else {
             stopCar()
           }
@@ -136,6 +147,10 @@ font-family: 'Barrio', cursive; -->
         data: JSON.stringify({newCarValue: true})}
       )
       $(".foodListItem").replaceWith("<div class='foodListItem'><img style='max-width: 500px; max-height: 300px' src=" + food.picture + "><h3>" + food.name + ": </h3>" + food.description + "</div>")
+      if (prevFood) {
+        var prev = foods[prevFood]
+        $(".pastFoods").prepend("<div style='float: left; display: flex: align-items: center; flex-direction: column'><img style='max-width: 200px; max-height: 200px' src=" + prev.picture + "><p style='margin-top: 0'>" + prev.name + "</p></div>")
+      }
     }
 
     function stopCar () {
@@ -145,7 +160,7 @@ font-family: 'Barrio', cursive; -->
         contentType: 'application/json',
         data: JSON.stringify({newCarValue: false})}
       )
-      $(".foodListItem").replaceWith("<div class='foodListItem'></div>")
+      // $(".foodListItem").replaceWith("<div class='foodListItem'></div>")
     }
   </script>
 </html>

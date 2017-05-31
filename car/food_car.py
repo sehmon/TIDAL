@@ -20,11 +20,13 @@ def get_food_function(function_type):
             }[function_type]
 
 
+serverUrl = "http://104.236.85.232:3000/status"
+
 running = True
 currFood = {}
 
 while(running):
-    r = requests.get('http://localhost:3000/status')
+    r = requests.get(serverUrl)
     serverFood = r.json().get("food", {})
     if (serverFood and (serverFood != currFood)):
         currFood = serverFood

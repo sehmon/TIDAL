@@ -157,12 +157,8 @@ font-family: 'Barrio', cursive; -->
               console.log('Just detected new food: ', foods[object.code].name , '!')
               addFood(foods[object.code])
             }
-          } else {
-            stopCar()
           }
         }
-      } else {
-        stopCar()
       }
     })
 
@@ -172,7 +168,7 @@ font-family: 'Barrio', cursive; -->
         url: '/status',
         type: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify({newCarValue: true, food: food})}
+        data: JSON.stringify({food: food})}
       )
       $(".foodListItem").replaceWith("<div class='foodListItem'><img style='max-width: 500px; max-height: 300px' src=" + food.picture + "><h3>" + food.name + ": </h3>" + food.description + "</div>")
       if (prevFood) {

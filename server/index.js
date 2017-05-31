@@ -9,6 +9,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 var carMoving = false
+var currFood;
 
 io.on('connection', function (socket) {
   console.log('Client connected')
@@ -24,13 +25,15 @@ app.get('/', function (req, res) {
 })
 
 app.get('/status', function (req, res) {
-  res.json({forward: carMoving})
+  res.json({food: currFood})
 })
 
 app.post('/status', function (req, res) {
-  carMoving = (req.body.newCarValue === true)
-  res.send('Changed carMoving to: ' + carMoving.toString())
-  console.log('Changed carMoving to: ' + carMoving.toString())
+  if (req.body.food.name != currFood) {
+      console.log("New Food Detected: " + req.body.food.name)
+      currFood = req.body.food;
+  }
+  console.log(currFood);
 })
 
 server.listen(3000, function () {
